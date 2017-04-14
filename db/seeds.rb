@@ -1,9 +1,13 @@
+puts "Destroying everything from previous seeds"
+
 Vote.destroy_all
 Response.destroy_all
 Poll.destroy_all
 User.destroy_all
 Category.destroy_all
 
+puts "Everything destroyed"
+puts "Creating users----------------"
 20.times do
   User.new(
     email: Faker::Internet.email,
@@ -13,6 +17,16 @@ Category.destroy_all
     ).save
 end
 
+User.new(
+    email: "pallbattle@gmail.com",
+    password: "password",
+    username: Faker::Internet.user_name,
+    picture_url: "http://res.cloudinary.com/dibgaxttc/image/upload/v1488365558/music_wtcq12.jpg",
+    admin: true
+    ).save
+
+
+puts "Creating Categories----------------"
 Category.new(name: "Music").save
 Category.last.picture_url = "http://res.cloudinary.com/dibgaxttc/image/upload/v1488365558/music_wtcq12.jpg"
 Category.new(name: "Movies").save
@@ -52,8 +66,9 @@ Category.last.picture_url = "http://res.cloudinary.com/dibgaxttc/image/upload/v1
 Category.new(name: "Home").save
 Category.last.picture_url = "http://res.cloudinary.com/dibgaxttc/image/upload/v1489137394/home_majer0.jpg"
 
-
+puts "Creating a first poll----------------------------"
 Poll.new(title: "First challenge, let's go", category: Category.all.sample, user: User.all.sample).save
 Response.new(label: "Shakira", poll: Poll.first, picture_url: "http://res.cloudinary.com/dibgaxttc/image/upload/v1488554416/television_zieqaf.jpg" ).save
 Response.new(label: "Beyoncé", poll: Poll.first, picture_url: "http://res.cloudinary.com/dibgaxttc/image/upload/v1488554415/eve-arnold-marylin-LA_pazgba.jpg").save
 
+puts "Seed OKAY-------------------------------"
